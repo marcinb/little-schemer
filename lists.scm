@@ -78,3 +78,14 @@
        (cons new lat))
       (else
         (cons (car lat) (insert-l new old (cdr lat)))))))
+
+;; Takes three arguments: atoms `old` and `new` and a list of atoms.
+;; Returns a copy of given list with `old` atom removed and `new` atom
+;; inserted in it's place.
+(define subst
+  (lambda (new old lat)
+    (cond
+      ((null? lat) (quote ()))
+      ((eq? (car lat) old) (cons new (cdr lat)))
+      (else
+        (cons (car lat) (subst new old (cdr lat)))))))
