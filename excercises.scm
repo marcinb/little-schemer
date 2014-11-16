@@ -56,3 +56,21 @@
       ((eq? e (car lat)) (cdr lat))
       (else
         (cons (car lat) (rember e (cdr lat)))))))
+
+;; Takes list of lists as an argument
+;; Returns a list of first S-expression of each internal list.
+(define firsts
+  (lambda (l)
+    (cond
+      ((null? l) (quote()))
+      (else
+        (cons (car (car l)) (firsts (cdr l)))))))
+
+;; Takes list of lists as an argument
+;; Returns a list of 2nd S-expression of each internal list.
+(define seconds
+  (lambda (l)
+    (cond
+      ((null? l) (quote ()))
+      (else
+        (cons (car (cdr (car l))) (seconds (cdr l)))))))
