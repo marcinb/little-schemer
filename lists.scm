@@ -75,6 +75,6 @@
     (cond
       ((null? lat) (quote ()))
       ((eq? (car lat) old)
-       (cons new (cons old (cdr lat))))
+       (cons new lat))
       (else
         (cons (car lat) (insert-l new old (cdr lat)))))))
