@@ -74,3 +74,27 @@
       ((null? l) (quote ()))
       (else
         (cons (car (cdr (car l))) (seconds (cdr l)))))))
+
+;; Takes three arguments: atoms `old` and `new` and a list of atoms.
+;; Returns a copy of given list with `new` atom inserted to the right
+;; of the first occurence of `old` in the original list.
+(define insert-r
+  (lambda (new old lat)
+    (cond
+      ((null? lat) (quote ()))
+      ((eq? (car lat) old)
+       (cons old (cons new (cdr lat))))
+      (else
+        (cons (car lat) (insert-r new old (cdr lat)))))))
+
+;; Takes three arguments: atoms `old` and `new` and a list of atoms.
+;; Returns a copy of given list with `new` atom inserted to the left
+;; of the first occurence of `old` in the original list.
+(define insert-l
+  (lambda (new old lat)
+    (cond
+      ((null? lat) (quote ()))
+      ((eq? (car lat) old)
+       (cons new (cons old (cdr lat))))
+      (else
+        (cons (car lat) (insert-l new old (cdr lat)))))))
