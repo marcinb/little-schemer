@@ -55,7 +55,7 @@
       (else
         (cons (car (cdr (car l))) (seconds (cdr l)))))))
 
-;; Takes three arguments: atoms `old` and `new` and a list of atoms.
+;; Takes three arguments: atoms `new` and `old` and a list of atoms.
 ;; Returns a copy of given list with `new` atom inserted to the right
 ;; of the first occurence of `old` in the original list.
 (define insert-r
@@ -67,7 +67,7 @@
       (else
         (cons (car lat) (insert-r new old (cdr lat)))))))
 
-;; Takes three arguments: atoms `old` and `new` and a list of atoms.
+;; Takes three arguments: atoms `new` and `old` and a list of atoms.
 ;; Returns a copy of given list with `new` atom inserted to the left
 ;; of the first occurence of `old` in the original list.
 (define insert-l
@@ -79,7 +79,7 @@
       (else
         (cons (car lat) (insert-l new old (cdr lat)))))))
 
-;; Takes three arguments: atoms `old` and `new` and a list of atoms.
+;; Takes three arguments: atoms `new` and `old` and a list of atoms.
 ;; Returns a copy of given list with `old` atom removed and `new` atom
 ;; inserted in it's place.
 (define subst
@@ -89,3 +89,28 @@
       ((eq? (car lat) old) (cons new (cdr lat)))
       (else
         (cons (car lat) (subst new old (cdr lat)))))))
+
+;; Takes four arguments: atoms `new`, `o1` and `o2` and a list of atoms.
+;; Returns a copy of given list withe the first occurence of either `o1` or `o2` removed
+;; and `new` atom; inserted in it's place.
+(define subst2
+  (lambda (new o1 o2 lat)
+    (cond
+      ((null? lat) (quote ()))
+      ((or
+         (eq? (car lat) o1)
+         (eq? (car lat) o2))
+       (cons new (cdr lat)))
+      (else
+        (cons (car lat) (subst2 new o1 o2 (cdr lat)))))))
+
+;; Takes atom and list as arguments.
+;; Returns new list being a copy of given list with
+;; all occurences of given atom removed.
+(define multirember
+  (lambda (e lat)
+    (cond
+      ((null? lat) (quote ()))
+      ((eq? (car lat) e) (multirember e (cdr lat)))
+      (else
+        (cons (car lat) (multirember e (cdr lat)))))))
