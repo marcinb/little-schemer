@@ -114,3 +114,29 @@
       ((eq? (car lat) e) (multirember e (cdr lat)))
       (else
         (cons (car lat) (multirember e (cdr lat)))))))
+
+;; Takes three arguments: atoms `new` and `old` and a list of atoms.
+;; Returns a copy of given list with `new` atom inserted to the right
+;; of every occurence of `old`
+(define multiinsert-r
+  (lambda (new old lat)
+    (cond
+      ((null? lat) (quote ()))
+      ((eq? (car lat) old)
+       (cons old
+             (cons new
+                   (multiinsert-r new old (cdr lat)))))
+      (else
+        (cons (car lat)
+              (multiinsert-r new old (cdr lat)))))))
+
+;; Takes three arguments: atoms `new` and `old` and a list of atoms.
+;; Returns a copy of given list with all occurences of `old` atom removed and `new` atom
+;; inserted in their place.
+(define multisubst
+  (lambda (new old lat)
+    (cond
+      ((null? lat) (quote ()))
+      ((eq? (car lat) old) (cons new (multisubst new old (cdr lat))))
+      (else
+        (cons (car lat) (multisubst new old (cdr lat)))))))
