@@ -99,3 +99,12 @@
       ((lower? n m) 0)
       (else
 	(add1 (div (sub n m) m))))))
+
+;; Takes a list as an argument. Returns the length of given list.
+(define lngth
+  (lambda (lat)
+    (cond
+      ((null? lat) 0)
+      (else
+	(add1 (length (cdr lat)))))))
+
