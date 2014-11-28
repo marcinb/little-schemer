@@ -51,6 +51,38 @@
       (else (cons 
 	      (add (car tup1) (car tup2)) 
 	      (tup+ (cdr tup1) (cdr tup2)))))))
+
+;; Takes two non negative numbers as arguments.
+;; Returns #t if first number is greater than secong one,
+;; returns #f otherwise.
+(define greater?
+  (lambda (n m)
+    (cond
+      ((zero? n) #f)
+      ((zero? m) #t)
+      (else
+	(greater? (sub1 n) (sub1 m))))))
+
+;; Takes two non negative numbers as arguments.
+;; Returns #t if first number is lower than secong one,
+;; returns #f otherwise.
+(define lower?
+  (lambda (n m)
+    (cond
+      ((zero? m) #f)
+      ((zero? n) #t)
+      (else
+	(lower? (sub1 n) (sub1 m))))))
+
+;; Compares values of two numbers.
+;; Returns #t if both are equal, returns #f otherwise.
+(define eql?
+  (lambda (n m)
+    (cond
+      ((greater? n m) #f)
+      ((lower? n m) #f)
+      (else #t))))
+
 ;; Takes two non negative numbers as arguments.
 ;; Returns first number taken to the power of second one
 (define pow
