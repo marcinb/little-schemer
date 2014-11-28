@@ -32,6 +32,25 @@
       (else
 	(add n (mult n (sub1 m)))))))
 
+;; Takes a list of non negative numbers as an argument.
+;; Returns number being sum of all list items.
+(define addtup
+  (lambda (tup)
+    (cond
+      ((null? tup) 0)
+      (else 
+	(add (car tup) (addtup (cdr tup)))))))
+
+;; Takes two lists of non negative numbers as arguments.
+;; Returns list of numbers being sum of corresponding numbers from given lists.
+(define tup+
+  (lambda (tup1 tup2)
+    (cond
+      ((null? tup1) tup2)
+      ((null? tup2) tup1)
+      (else (cons 
+	      (add (car tup1) (car tup2)) 
+	      (tup+ (cdr tup1) (cdr tup2)))))))
 ;; Takes two non negative numbers as arguments.
 ;; Returns first number taken to the power of second one
 (define pow
