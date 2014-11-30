@@ -121,7 +121,7 @@
 (define rempick
   (lambda (n lat)
     (cond
-      ((zero? (sub1 n)) (cdr lat))
+      ((= n 1) (cdr lat))
       (else
 	(cons 
 	  (car lat) 
