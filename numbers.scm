@@ -127,3 +127,26 @@
 	  (car lat) 
 	  (rempick (sub1 n) (cdr lat)))))))
 
+;; Takes list of atoms as an argument.
+;; Returns list being a copy of original with all numeric atoms removed.
+(define no-nums
+  (lambda (lat)
+    (cond
+      ((null? lat) (quote ()))
+      (else
+	(cond
+	  ((number? (car lat)) (no-nums (cdr lat)))
+	  (else
+	    (cons (car lat) (no-nums (cdr lat)))))))))
+
+;; Takes list of atoms as an argument.
+;; Returns list being a copy of original with all non-numeric atoms removed.
+(define only-nums
+  (lambda (lat)
+    (cond
+      ((null? lat) (quote ()))
+      (else
+	(cond
+	  ((number? (car lat)) (cons (car lat) (only-nums (cdr lat))))
+	  (else
+	    (only-nums (cdr lat))))))))
