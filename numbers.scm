@@ -150,3 +150,15 @@
 	  ((number? (car lat)) (cons (car lat) (only-nums (cdr lat))))
 	  (else
 	    (only-nums (cdr lat))))))))
+
+;; Takes an atom and list of atoms as an argument.
+;; Returns number of occurences of a given atom in the list.
+(define occur-count
+  (lambda (a lat)
+    (cond
+      ((null? lat) 0)
+      (else
+	(cond
+	  ((eq? (car lat) a) (add1 (occur-count a (cdr lat))))
+	  (else 
+	    (occur-count a (cdr lat))))))))
