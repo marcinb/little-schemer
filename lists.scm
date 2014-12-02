@@ -140,3 +140,17 @@
       ((eq? (car lat) old) (cons new (multisubst new old (cdr lat))))
       (else
         (cons (car lat) (multisubst new old (cdr lat)))))))
+
+;; Takes an atom and nested list as arguments.
+;; Removes all occurences of given atom in every nested list element.
+(define rember*
+  (lambda (a l)
+    (cond
+      ((null? l) (quote ()))
+      ((atom? (car l))
+       (cond
+	 ((eq? (car l) a) (rember* a (cdr l)))
+	 (else
+	   (cons (car l) (rember* a (cdr l))))))
+       (else
+	 (cons (rember* a (car l)) (rember* a (cdr l)))))))
