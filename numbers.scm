@@ -1,3 +1,10 @@
+;; Takes any S-expression as an argument.
+;; Answers #t if given expression is an atom,
+;; answers #f otherwise.
+(define atom?
+  (lambda (x)
+    (and (not (pair? x)) (not (null? x)))))
+
 ;; Increments given number by 1.
 (define add1
   (lambda (n)
@@ -162,3 +169,16 @@
 	  ((eq? (car lat) a) (add1 (occur-count a (cdr lat))))
 	  (else 
 	    (occur-count a (cdr lat))))))))
+
+;; Counts all ocurences of atom `a` in given list of S-expressions.
+(define occur*
+  (lambda (a l)
+    (cond
+      ((null? l) 0)
+      ((atom? (car l))
+       (cond
+	 ((eq? (car l) a) (add1 (occur* a (cdr l))))
+	 (else
+	   (occur* a (cdr l)))))
+      (else
+	(add (occur* a (car l)) (occur* a (cdr l)))))))
