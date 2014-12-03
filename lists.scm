@@ -156,7 +156,7 @@
 	 (cons (rember* a (car l)) (rember* a (cdr l)))))))
 
 ;; Takes an `new` and `old` atoms  and nested list as arguments.
-;; Inserts `new` atom after each occurence of `old` atom in all nested list element.
+;; Inserts `new` atom after each occurence of `old` atom in all nested list elements.
 (define insert-r*
   (lambda (new old l)
     (cond
