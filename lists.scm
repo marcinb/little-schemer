@@ -215,3 +215,12 @@
 	  (member* a (car l))
 	  (member* a (cdr l)))))))
 
+;; Takes a list of S-expressions as argument
+;; returns leftmost atom element of the list.
+(define leftmost
+  (lambda (l)
+    (cond
+      ((atom? (car l)) (car l))
+      (else
+	(leftmost (car l))))))
+
