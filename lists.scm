@@ -197,3 +197,21 @@
 	   (cons (car l) (subst* new old (cdr l))))))
       (else
 	(cons (subst* new old (car l)) (subst* new old (cdr l)))))))
+
+;; Takes an atom and a list of S-expressions as arguents
+;; Answers #t if given atom is present in the list,
+;; answers #f othewrise.
+(define member*
+  (lambda (a l)
+    (cond 
+      ((null? l) #f)
+      ((atom? (car l)) 
+       (cond
+	 ((eq? (car l) a) #t)
+	 (else
+	   (member* a (cdr l)))))
+      (else
+	(or
+	  (member* a (car l))
+	  (member* a (cdr l)))))))
+
