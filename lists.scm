@@ -224,3 +224,20 @@
       (else
 	(leftmost (car l))))))
 
+;; Determines whether 2 lists of S-expressions are equal.
+(define eqlist
+  (lambda (l1 l2)
+    (cond
+      ((and (null? l1) (null? l2)) #t)
+      ((or (null? l1) (null? l2)) #f)
+      ((and
+	 (atom? (car l1))
+	 (atom? (car l2)))
+       (and
+	 (eq? (car l1) (car l2))
+	 (eqlist (cdr l1) (cdr l2))))
+      ((or (atom? l1) (atom? l2)) #f)
+      (else
+	(and
+	  (eqlist (car l1) (car l2))
+	  (eqlist (cdr l1) (cdr l2)))))))
