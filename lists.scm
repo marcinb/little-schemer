@@ -169,6 +169,20 @@
       (else
 	(cons (insert-r* new old (car l)) (insert-r* new old (cdr l)))))))
 
+;; Takes an `new` and `old` atoms  and nested list as arguments.
+;; Inserts `new` atom before each occurence of `old` atom in all nested list elements.
+(define insert-l*
+  (lambda (new old l)
+    (cond
+      ((null? l) (quote ()))
+      ((atom? (car l))
+       (cond
+	 ((eq? (car l) old)
+	  (cons new (cons old (insert-l* new old (cdr l)))))
+	 (else
+	   (cons (car l) (insert-l* new old (cdr l))))))
+      (else
+	(cons (insert-l* new old (car l)) (insert-l* new old (cdr l)))))))
 
 ;; Takes an `new` and `old` atoms  and nested list as arguments.
 ;; Replaces atom after each occurence of `old` with `new` atom in all nested list elements.
