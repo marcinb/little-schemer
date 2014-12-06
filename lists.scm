@@ -30,12 +30,12 @@
 ;; Returns new list being a copy of given list with
 ;; the first occurence of given atom removed.
 (define rember
-  (lambda (e lat)
+  (lambda (e l)
     (cond
-      ((null? lat) (quote ()))
-      ((eq? e (car lat)) (cdr lat))
-      (else
-        (cons (car lat) (rember e (cdr lat)))))))
+      ((null? l) (quote ()))
+      ((equal (car l) e) (cdr l))
+      (else 
+	(cons (car l) (rember e (cdr l)))))))
 
 ;; Takes list of lists as an argument
 ;; Returns a list of first S-expression of each internal list.
