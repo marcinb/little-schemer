@@ -230,14 +230,16 @@
     (cond
       ((and (null? l1) (null? l2)) #t)
       ((or (null? l1) (null? l2)) #f)
-      ((and
-	 (atom? (car l1))
-	 (atom? (car l2)))
-       (and
-	 (eq? (car l1) (car l2))
-	 (eqlist (cdr l1) (cdr l2))))
-      ((or (atom? l1) (atom? l2)) #f)
       (else
 	(and
-	  (eqlist (car l1) (car l2))
+	  (equal (car l1) (car l2))
 	  (eqlist (cdr l1) (cdr l2)))))))
+
+;; Determines whether 2 S-expressions are equal.
+(define equal
+  (lambda (s1 s2)
+    (cond
+      ((and (atom? s1) (atom? s2))
+       (eq? s1 s2))
+      ((or (atom? s1) (atom? s2)) #f)
+      (else (eqlist s1 s2)))))
