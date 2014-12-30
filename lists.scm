@@ -243,3 +243,13 @@
        (eq? s1 s2))
       ((or (atom? s1) (atom? s2)) #f)
       (else (eqlist s1 s2)))))
+
+;; Determines whether given S-expression represents
+;; an arithmetic expression.
+(define numbered?
+  (lambda (aexp)
+    (cond
+      ((atom? aexp) (number? aexp))
+      (else 
+	(and (numbered? (car aexp))
+	     (numbered? (car (cdr (cdr aexp)))))))))
