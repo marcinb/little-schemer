@@ -253,3 +253,20 @@
       (else 
 	(and (numbered? (car aexp))
 	     (numbered? (car (cdr (cdr aexp)))))))))
+
+;; Reduces given arithmetic S-expression 
+;; to its numeric value.
+
+(define value
+  (lambda (aexp)
+    (cond
+      ((atom? aexp) aexp)
+      ((eq? (car (cdr aexp)) (quote +))
+       (+ (value (car aexp))
+	  (value (car (cdr (cdr aexp))))))
+      ((eq? (car (cdr aexp)) (quote *))
+       (* (value (car aexp))
+	  (value (car (cdr (cdr aexp))))))
+      (else
+       (- (value (car aexp))
+	  (value (car (cdr (cdr aexp)))))))))
