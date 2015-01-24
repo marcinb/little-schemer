@@ -254,19 +254,31 @@
 	(and (numbered? (car aexp))
 	     (numbered? (car (cdr (cdr aexp)))))))))
 
+;; Helper functions for `value`
+(define first-sub-expression
+  (lambda (aexp)
+    (car (cdr aexp))))
+
+(define second-sub-expression
+  (lambda (aexp)
+    (car (cdr (cdr aexp)))))
+
+(define operator
+  (lambda (aexp)
+    (car aexp)))
+
 ;; Reduces given arithmetic S-expression 
 ;; to its numeric value.
-
 (define value
   (lambda (aexp)
     (cond
       ((atom? aexp) aexp)
-      ((eq? (car aexp) (quote +))
-       (+ (value (car (cdr aexp)))
-	  (value (car (cdr (cdr aexp))))))
-      ((eq? (car aexp) (quote *))
-       (* (value (car (cdr aexp)))
-	  (value (car (cdr (cdr aexp))))))
+      ((eq? (operator aexp) (quote +))
+       (+ (value (first-sub-expression aexp))
+	  (value (second-sub-expression aexp))))
+      ((eq? (operator aexp) (quote *))
+       (* (value (first-sub-expression aexp))
+	  (value (second-sub-expression aexp))))
       (else
-       (- (value (car (cdr aexp)))
-	  (value (car (cdr (cdr aexp)))))))))
+       (- (value (first-sub-expression aexp))
+	  (value (second-sub-expression aexp)))))))
